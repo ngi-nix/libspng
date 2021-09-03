@@ -22,8 +22,13 @@
           name = "libspng";
           src = libspng-src;
 
-          buildInputs = with pkgs; [ pkg-config zlib ];
-          nativeBuildInputs = with pkgs; [ ninja cmake meson ];
+          mesonBuildType = "release";
+
+          outputs = [ "out" "dev" ];
+          outputBin = "dev";
+
+          buildInputs = with pkgs; [ zlib ];
+          nativeBuildInputs = with pkgs; [ pkg-config ninja meson ];
         };
         defaultPackage = packages.libspng;
 
@@ -31,7 +36,7 @@
 
         # `nix develop`
         devShell = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [ pkg-config zlib meson ninja cmake ];
+          nativeBuildInputs = with pkgs; [ pkg-config zlib meson ninja ];
         };
       });
 }
