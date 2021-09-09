@@ -31,14 +31,8 @@
         };
         defaultPackage = packages.libspng;
 
-        checks.libspng = pkgs.stdenv.mkDerivation {
-          pname = "libspng";
-          name = "libspng";
-          src = libspng-src;
-
+        checks.libspng = packages.libspng.overrideAttrs (oldAttrs: {
           doCheck = true;
-
-          mesonBuildType = "release";
 
           mesonFlags = [
             # this is required to enable testing
@@ -46,12 +40,8 @@
             "-Ddev_build=true"
           ];
 
-          outputs = [ "out" "dev" ];
-
           checkInputs = with pkgs; [ cmake libpng ];
-          buildInputs = with pkgs; [ pkg-config zlib ];
-          nativeBuildInputs = with pkgs; [ ninja meson ];
-        };
+        });
 
         # `nix develop`
         devShell = pkgs.mkShell {
