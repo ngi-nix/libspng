@@ -45,7 +45,7 @@
 
         # `nix develop`
         devShell = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [ pkg-config zlib meson ninja cmake ];
+          inputsFrom = [ checks.libspng ];
         };
       });
 }
